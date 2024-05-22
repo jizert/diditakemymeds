@@ -9,16 +9,20 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+
+    - name: Deploy config.json
+      run: |
+        echo -e "{\n  \"SUPABASE_URL\": \"${{ secrets.SUPABASE_URL }}\",\n  \"SUPABASE_ANON_KEY\": \"${{ secrets.SUPABASE_ANON_KEY }}\"\n}" > ./config.json
+        mv ./config.json ./  # Move config.json to the root directory of your static files
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./
-    - name: Deploy config.json
-      run: |
-        echo -e "{\n  \"SUPABASE_URL\": \"${{ secrets.SUPABASE_URL }}\",\n  \"SUPABASE_ANON_KEY\": \"${{ secrets.SUPABASE_ANON_KEY }}\"\n}" > ./config.json
-        mv ./config.json ./  # Move config.json to the root directory of your static files
+        publish_dir: ./  # Adjust this if your static files are in a different directory
