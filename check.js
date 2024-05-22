@@ -1,13 +1,21 @@
-window.onload = function() {
-    const morningMessage = document.getElementById('morning-message');
-    const eveningMessage = document.getElementById('evening-message');
-    const bedtimeMessage = document.getElementById('bedtime-message');
+window.onload = async function() {
+    if (!window.supabase) {
+        console.error('Supabase not initialized');
+        return;
+    }
 
-    const morningMeds = localStorage.getItem('morning-meds');
-    const eveningMeds = localStorage.getItem('evening-meds');
-    const bedtimeMeds = localStorage.getItem('bedtime-meds');
+    const userId = 'postgres.dahjmbayitrmaogxlrts'; // Replace with actual user ID logic
+    const { data, error } = await window.supabase
+        .from('medsStatus')
+        .select('*')
+        .eq('user_id', userId)
+        .single();
 
-    morningMessage.textContent = morningMeds === 'Yes' ? 'Yes' : 'Not yet';
-    eveningMessage.textContent = eveningMeds === 'Yes' ? 'Yes' : 'Not yet';
-    bedtimeMessage.textContent = bedtimeMeds === 'Yes' ? 'Yes' : 'Not yet';
-};
+    if (error) {
+        console.error('Error fetching status:', error);
+    } else {
+        document.getElementById('morning-message').textContent = data.morning || 'Not yet';
+        document.getElementById('evening-message').textContent = data.evening || 'Not yet';
+        document.getElementById('bedtime-message').textContent = data.bedtime || 'Not yet';
+    }
+}
