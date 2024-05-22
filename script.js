@@ -1,25 +1,26 @@
-function updateStatus(timeOfDay) {
-    if (timeOfDay === 'morning') {
-        localStorage.setItem('morning-meds', 'Yes');
-        alert('Morning meds logged.');
-    } else if (timeOfDay === 'evening') {
-        localStorage.setItem('evening-meds', 'Yes');
-        alert('Evening meds logged.');
-    } else if (timeOfDay === 'bedtime') {
-        localStorage.setItem('bedtime-meds', 'Yes');
-        alert('Bedtime meds logged.');
+async function updateStatus(timeOfDay) {
+    const userId = 'unique-user-id'; // Replace with actual user ID logic
+    const { data, error } = await supabase
+        .from('medsStatus')
+        .upsert({ user_id: userId, [timeOfDay]: 'Yes' }, { onConflict: ['user_id'] });
+
+    if (error) {
+        console.error('Error updating status:', error);
+    } else {
+        alert(`${timeOfDay.charAt(0).toUpperCase() + timeOfDay.slice(1)} meds logged.`);
     }
 }
 
-function undoStatus(timeOfDay) {
-    if (timeOfDay === 'morning') {
-        localStorage.removeItem('morning-meds');
-        alert('Morning meds log removed.');
-    } else if (timeOfDay === 'evening') {
-        localStorage.removeItem('evening-meds');
-        alert('Evening meds log removed.');
-    } else if (timeOfDay === 'bedtime') {
-        localStorage.removeItem('bedtime-meds');
-        alert('Bedtime meds log removed.');
+async function undoStatus(timeOfDay) {
+    const userId = 'unique-user-id'; // Replace with actual user ID logic
+    const { data, error } = await supabase
+        .from('medsStatus')
+        .update({ [timeOfDay]: null })
+        .eq('user_id', userId);
+
+    if (error) {
+        console.error('Error undoing status:', error);
+    } else {
+        alert(`${timeOfDay.charAt(0).toUpperCase() + timeOfDay.slice(1)} meds log removed.`);
     }
 }
