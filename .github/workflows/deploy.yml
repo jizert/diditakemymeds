@@ -19,7 +19,6 @@ jobs:
     - name: Deploy config.json
       run: |
         echo -e "{\n  \"SUPABASE_URL\": \"${{ secrets.SUPABASE_URL }}\",\n  \"SUPABASE_ANON_KEY\": \"${{ secrets.SUPABASE_ANON_KEY }}\"\n}" > ./config.json
-        mv ./config.json ./  # Move config.json to the root directory of your static files
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
