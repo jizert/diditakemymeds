@@ -20,6 +20,9 @@ jobs:
       run: |
         echo -e "{\n  \"SUPABASE_URL\": \"${{ secrets.SUPABASE_URL }}\",\n  \"SUPABASE_ANON_KEY\": \"${{ secrets.SUPABASE_ANON_KEY }}\"\n}" > ./config.json
 
+    - name: Create .nojekyll
+      run: echo "" > .nojekyll
+
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
