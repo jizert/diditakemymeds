@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,19 +16,21 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: '14'
+        node-version: '16'
 
     - name: Install dependencies
       run: npm install
 
-    - name: Build the project
+    - name: Build project
       run: npm run build
-      env:
-        SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
-        SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./build
+        publish_dir: ./dist
+
+    - name: Deploy config.json
+      run: |
+        echo '${{ secrets.SUPABASE_URL }}' > ./dist/config.json
+        echo '${{ secrets.SUPABASE_ANON_KEY }}' >> ./dist/config.json
