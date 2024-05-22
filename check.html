@@ -12,20 +12,23 @@
         <a href="check.html">Check</a>
     </nav>
     <div class="container">
-        <h1>Check Meds Status</h1>
+        <h1>Log Meds</h1>
         <div id="morning-status" class="status">
             <h2>Morning Meds</h2>
-            <p id="morning-message" class="message">Not yet</p>
+            <button class="btn" onclick="updateStatus('morning')">Yes</button>
+            <button class="btn-undo" onclick="undoStatus('morning')">Undo</button>
         </div>
         <div id="evening-status" class="status">
             <h2>Evening Meds</h2>
-            <p id="evening-message" class="message">Not yet</p>
+            <button class="btn" onclick="updateStatus('evening')">Yes</button>
+            <button class="btn-undo" onclick="undoStatus('evening')">Undo</button>
         </div>
         <div id="bedtime-status" class="status">
             <h2>Bedtime Meds</h2>
-            <p id="bedtime-message" class="message">Not yet</p>
+            <button class="btn" onclick="updateStatus('bedtime')">Yes</button>
+            <button class="btn-undo" onclick="undoStatus('bedtime')">Undo</button>
         </div>
     </div>
-    <script src="check.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
