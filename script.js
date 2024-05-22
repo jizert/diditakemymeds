@@ -1,6 +1,6 @@
 async function updateStatus(timeOfDay) {
-    const userId = 'unique-user-id'; // Replace with actual user ID logic
-    const { data, error } = await supabase
+    const userId = 'postgres.dahjmbayitrmaogxlrts'; // Replace with actual user ID logic
+    const { data, error } = await window.supabase
         .from('medsStatus')
         .upsert({ user_id: userId, [timeOfDay]: 'Yes' }, { onConflict: ['user_id'] });
 
@@ -12,8 +12,8 @@ async function updateStatus(timeOfDay) {
 }
 
 async function undoStatus(timeOfDay) {
-    const userId = 'unique-user-id'; // Replace with actual user ID logic
-    const { data, error } = await supabase
+    const userId = 'postgres.dahjmbayitrmaogxlrts'; // Replace with actual user ID logic
+    const { data, error } = await window.supabase
         .from('medsStatus')
         .update({ [timeOfDay]: null })
         .eq('user_id', userId);
