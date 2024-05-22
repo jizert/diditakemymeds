@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Meds Status</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/@supabase/supabase-js"></script>
+    <script>
+        // Load Supabase configuration
+        fetch('config.json')
+            .then(response => response.json())
+            .then(config => {
+                window.supabaseUrl = config.SUPABASE_URL;
+                window.supabaseAnonKey = config.SUPABASE_ANON_KEY;
+                window.supabase = supabase.createClient(window.supabaseUrl, window.supabaseAnonKey);
+            })
+            .catch(error => console.error('Error loading config:', error));
+    </script>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Log</a>
+        <a href="check.html">Check</a>
+    </nav>
+    <div class="container">
+        <h1>Check Meds Status</h1>
+        <div id="morning-status" class="status">
+            <h2>Morning Meds</h2>
+            <p id="morning-message">Loading...</p>
+        </div>
+        <div id="evening-status" class="status">
+            <h2>Evening Meds</h2>
+            <p id="evening-message">Loading...</p>
+        </div>
+        <div id="bedtime-status" class="status">
+            <h2>Bedtime Meds</h2>
+            <p id="bedtime-message">Loading...</p>
+        </div>
+    </div>
+    <script src="check.js"></script>
+</body>
+</html>
