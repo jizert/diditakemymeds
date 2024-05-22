@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Did I Take My Meds?</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/@supabase/supabase-js"></script>
+    <script>
+        // Supabase configuration
+        const supabaseUrl = process.env.SUPABASE_URL;
+        const supabaseAnonKey = process.env.SUPABASE_ANON_KEY;
+        const supabase = supabase.createClient(supabaseUrl, supabaseAnonKey);
+    </script>
 </head>
 <body>
     <nav>
